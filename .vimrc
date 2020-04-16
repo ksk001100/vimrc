@@ -14,6 +14,13 @@ function RubyFmt()
   edit!
 endfunction
 
+""" Twitter function
+function! s:Timeline()
+  let tweets = system("toyotter tl")
+  echo substitute(tweets, '\e\[[0-9;]\+[mK]', '', 'g')
+endfunction
+command! Timeline call s:Timeline()
+
 """ Common setting
 set number
 syntax on
