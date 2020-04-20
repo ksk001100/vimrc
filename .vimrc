@@ -9,11 +9,6 @@ function PythonFmt()
   edit!
 endfunction
 
-function RubyFmt()
-  call system("rufo " . expand("%:p"))
-  edit!
-endfunction
-
 """ Twitter function
 function! s:Timeline()
   let tweets = system("toyotter tl")
@@ -49,23 +44,33 @@ let &t_SI .= "\e[6 q"
 let &t_EI .= "\e[2 q"
 let &t_SR .= "\e[4 q"
 
-""" Netrw settings
-let g:netrw_list_hide = 'CVS,\(^\|\s\s\)\zs\.\S\+'
-let g:netrw_altv = 1
-let g:netrw_alto = 1
-let g:netrw_preview = 1
-let g:netrw_retmap = 1
-let g:netrw_banner = 0
-let g:netrw_liststyle = 3
-let g:netrw_browse_split = 4
-let g:netrw_winsize = 15
-augroup ProjectDrawer
-  autocmd!
-  autocmd VimEnter * :Vexplore
-augroup END
+""" vim-lsp-settings
+let g:lsp_settings_servers_dir = "$HOME/.local/share/vim-lsp-settings/servers"
+
+""" NERDTree
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
+
+""" VimPlug settings
+call plug#begin('~/.vim/plugged')
+
+""" vim-lsp
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'mattn/vim-lsp-settings'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
+
+""" NERDTree
+Plug 'preservim/nerdtree'
+
+""" git
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rhubarb'
+
+call plug#end()
 
 """ Auto command
 autocmd BufWritePost *.rs call RustFmt()
 autocmd BufWritePost *.py call PythonFmt()
-autocmd BufWritePost *.rb call RubyFmt()
 autocmd QuickFixCmdPost *grep* cwindow
