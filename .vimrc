@@ -37,6 +37,7 @@ set shiftwidth=4
 set backspace=2
 set hlsearch
 set splitright
+set splitbelow
 set clipboard=unnamed,autoselect
 set updatetime=1000
 colorscheme torte
@@ -53,33 +54,37 @@ let lsp_signature_help_enabled = 1
 """ NERDTree
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
+let NERDTreeShowHidden=1
 
 """ VimPlug settings
 call plug#begin('~/.vim/plugged')
 
-""" vim-lsp
+" vim-lsp
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
 
-""" NERDTree
+" NERDTree
 Plug 'preservim/nerdtree'
 
-""" git
+" git
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
 
 " wakatime
 Plug 'wakatime/vim-wakatime'
 
-""" fzf
+" fzf
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 
-""" ctrlp
+" ctrlp
 Plug 'ctrlpvim/ctrlp.vim'
+
+" ocaml
+Plug 'reasonml-editor/vim-reason-plus'
 
 call plug#end()
 
@@ -89,17 +94,27 @@ autocmd BufWritePost *.py call PythonFmt()
 autocmd QuickFixCmdPost *grep* cwindow
 
 """ map
+nmap <Space>' :terminal ++close ++rows=20<CR>
+nmap <Space>v' :vert term<CR>
 nmap <Space>fed :e ~/.vimrc<CR>
 nmap <Space>rr :source %<CR>
 nmap <Space>qq :qa!<CR>
 nmap <Space>qa :wqa<CR>
 nmap <Space>k :LspHover<CR>
-nmap <Space>gg :LspDefinition<CR>
+nmap <Space>gg :rightbelow<Space>vertical<Space>LspDefinition<CR>
 nmap <Space><Tab> :b #<CR>
 nmap <Space>wv :vs<CR>
 nmap <Space>w- :sp<CR>
 nmap <Space>ww <C-w><C-w>
+nmap <Space>wh <C-w><C-w><C-h>
+nmap <Space>wj <C-w><C-w><C-j>
+nmap <Space>wk <C-w><C-w><C-k>
+nmap <Space>wl <C-w><C-w><C-l>
+nmap <Space>wo <C-w>o
+nmap <Space>wq <C-w>c
 nmap <Space>/ :Rg<Space>
 nmap <Space>tl :Timeline<CR>
 nmap <Space>tw :Tweet<Space>
 nmap <Space>pf :CtrlP<CR>
+nmap <Space>gb :Gblame<CR>
+nmap <Space>pt :NERDTree<CR>
