@@ -94,15 +94,15 @@ autocmd BufWritePost *.py call PythonFmt()
 autocmd QuickFixCmdPost *grep* cwindow
 
 """ map
+" terminal
 nmap <Space>' :terminal ++close ++rows=20<CR>
 nmap <Space>v' :vert term<CR>
+
+" edit vimrc
 nmap <Space>fed :e ~/.vimrc<CR>
 nmap <Space>rr :source %<CR>
-nmap <Space>qq :qa!<CR>
-nmap <Space>qa :wqa<CR>
-nmap <Space>k :LspHover<CR>
-nmap <Space>gg :rightbelow<Space>vertical<Space>LspDefinition<CR>
-nmap <Space><Tab> :b #<CR>
+
+" window
 nmap <Space>wv :vs<CR>
 nmap <Space>w- :sp<CR>
 nmap <Space>ww <C-w><C-w>
@@ -112,9 +112,28 @@ nmap <Space>wk <C-w><C-w><C-k>
 nmap <Space>wl <C-w><C-w><C-l>
 nmap <Space>wo <C-w>o
 nmap <Space>wq <C-w>c
+
+" previous buffer
+nmap <Space><Tab> :b #<CR>
+
+" lsp
+nmap <Space>k :LspHover<CR>
+nmap <Space>gg :rightbelow<Space>vertical<Space>LspDefinition<CR>
+
+" search
+nmap <Space>pf :CtrlP<CR>
 nmap <Space>/ :Rg<Space>
+
+" NERDTree
+nmap <Space>pt :NERDTree<CR>
+
+" quit
+nmap <Space>qq :qa!<CR>
+nmap <Space>qa :wqa<CR>
+
+" git
+nmap <Space>gb :Gblame<CR>
+
+" twitter
 nmap <Space>tl :Timeline<CR>
 nmap <Space>tw :Tweet<Space>
-nmap <Space>pf :CtrlP<CR>
-nmap <Space>gb :Gblame<CR>
-nmap <Space>pt :NERDTree<CR>
