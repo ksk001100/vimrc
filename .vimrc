@@ -22,6 +22,7 @@ function! Tweet(...)
 endfunction
 command! -nargs=? Tweet call Tweet(<f-args>)
 
+
 """ Common setting
 set number
 syntax on
@@ -37,6 +38,7 @@ set backspace=2
 set hlsearch
 set splitright
 set clipboard=unnamed,autoselect
+set updatetime=1000
 colorscheme torte
 
 """ Cursor settings
@@ -46,6 +48,7 @@ let &t_SR .= "\e[4 q"
 
 """ vim-lsp-settings
 let g:lsp_settings_servers_dir = "$HOME/.local/share/vim-lsp-settings/servers"
+let lsp_signature_help_enabled = 1
 
 """ NERDTree
 autocmd StdinReadPre * let s:std_in=1
@@ -68,9 +71,35 @@ Plug 'preservim/nerdtree'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
 
+" wakatime
+Plug 'wakatime/vim-wakatime'
+
+""" fzf
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
+
+""" ctrlp
+Plug 'ctrlpvim/ctrlp.vim'
+
 call plug#end()
 
 """ Auto command
 autocmd BufWritePost *.rs call RustFmt()
 autocmd BufWritePost *.py call PythonFmt()
 autocmd QuickFixCmdPost *grep* cwindow
+
+""" map
+nmap <Space>fed :e ~/.vimrc<CR>
+nmap <Space>rr :source %<CR>
+nmap <Space>qq :qa!<CR>
+nmap <Space>qa :wqa<CR>
+nmap <Space>k :LspHover<CR>
+nmap <Space>gg :LspDefinition<CR>
+nmap <Space><Tab> :b #<CR>
+nmap <Space>wv :vs<CR>
+nmap <Space>w- :sp<CR>
+nmap <Space>ww <C-w><C-w>
+nmap <Space>/ :Rg<Space>
+nmap <Space>tl :Timeline<CR>
+nmap <Space>tw :Tweet<Space>
+nmap <Space>pf :CtrlP<CR>
